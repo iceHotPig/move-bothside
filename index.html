@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title></title>
+  <style>
+    *{
+      margin:0;
+    }
+     #box{
+      width: 200px;
+      height: 200px;
+      background-color:red;
+      position:absolute;
+     }
+  </style>
+</head>
+<body>
+    <input type="button" name="" value="点击" id="btn1">
+    <input type="button" name="" value="点击" id="btn2">
+    <div id="box"></div>
+</body>
+</html>
+<script>
+  var oBox=document.getElementById('box');
+  var oBtn1=document.getElementById('btn1');
+  var oBtn2=document.getElementById('btn2');
+  oBtn1.onclick=function(){
+    move(oBox,600);
+  }
+  oBtn2.onclick=function(){
+    move(oBox,0);
+  }
+  var time=null;
+  var speed = null;
+  function move(elem,rwaiy){
+    clearInterval(time);
+    time=setInterval(function(){
+      if (speed>0) {
+        speed=Math.ceil((rwaiy-elem.offsetLeft)/10);
+      }else{
+        speed=Math.floor((rwaiy-elem.offsetLeft)/10);
+      }
+      if (parseInt(elem.style.left)==rwaiy) {
+          elem.style.left=rwaiy+'px';
+          clearInterval(time);
+        }else{
+        elem.style.left=elem.offsetLeft + speed+'px';
+        }
+      },24 )
+   }
+</script>
+<script>
+window.onload=function(){
+  var oBox=document.getElementById('box');
+  oBox.onclick=function(){
+    console.log(getStyle(oBox,'left'));
+  }
+  function getStyle(ele,pro){
+    if (window.getComputedStyle) {
+      return window.getComputedStyle(ele,false)[pro];
+    }else{
+      return ele.currentStyle[pro];
+    }
+  }
+}
+</script>
